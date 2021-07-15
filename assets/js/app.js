@@ -65,12 +65,26 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     .data(censusData)
     .enter()
     .append("circle")
+    .classed("stateCircle", true)
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", "15")
-    .attr("fill", "blue")
     .attr("opacity", ".5")
     .attr("font-size", "10px")
+
+    // Add state abbr to circle
+    chartGroup.selectAll("stateText")
+        .data(censusData)
+        .enter()
+        .append("text")
+        .classed("stateText", true)
+        .attr("x", d => xLinearScale(d.poverty))
+        .attr("y", d => yLinearScale(d.healthcare))
+        .attr("dy", "4")
+        .attr("font-size", "12px")
+        .text(function(d){
+            return d.abbr;
+        })
 
     // Initialize tool tip
     var toolTip = d3.tip()
