@@ -1,5 +1,4 @@
-// Step 1: Set up our chart
-//= ================================
+// Set up our chart
 var svgWidth = 960;
 var svgHeight = 600;
 
@@ -41,7 +40,7 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
 
     // scale functions
     var xLinearScale = d3.scaleLinear()
-        .domain([d3.min(censusData, d => d.poverty) * 0.5, d3.max(censusData, d => d.poverty) + 2])
+        .domain([d3.min(censusData, d => d.poverty)-1, d3.max(censusData, d => d.poverty) + 2])
         .range([0, width]);
 
     var yLinearScale = d3.scaleLinear()
@@ -91,7 +90,7 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
       .attr("class", "d3-tip")
       .offset([80, -60])
       .html(function(d) {
-        return (`State: ${d.abbr}<br>Lacks HealthCare %: ${d.healthcare}<br>In Poverty %: ${d.poverty}`);
+        return (`State: ${d.abbr}<br>Lacks HealthCare: ${d.healthcare}%<br>In Poverty: ${d.poverty}%`);
       });
     
     // create tooltip on chart
@@ -105,5 +104,21 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
       .on("mouseout", function(data, index) {
         toolTip.hide(data);
       });
+
+     // Create axes labels
+     chartGroup.append("text")
+     .attr("transform", "rotate(-90)")
+     .attr("y", 0 - margin.left)
+     .attr("x", 0 - (height / 2))
+     .classed("aText", true)
+     .classed("active", true)
+     .attr("dy", "1em")
+     .text("Lacks HealthCare (%)");
+
+   chartGroup.append("text")
+     .attr("transform", `translate(${width / 2}, ${height + margin.top + 20})`)
+     .classed("aText", true)
+     .classed("active", true)
+     .text("In Poverty (%)");
 
 });
