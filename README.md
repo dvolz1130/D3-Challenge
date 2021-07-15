@@ -5,6 +5,9 @@ Using the D3 techniques we taught you in class, create a scatter plot that repre
 Include state abbreviations in the circles.
 
 
+Include "mouseover" to the d3.tip
+
+
 Create and situate your axes and labels to the left and bottom of the chart.
 
 
