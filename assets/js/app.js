@@ -88,7 +88,7 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
     // Initialize tool tip
     var toolTip = d3.tip()
       .attr("class", "d3-tip")
-      .offset([80, -60])
+      .offset([80, -80])
       .html(function(d) {
         return (`State: ${d.abbr}<br>Lacks HealthCare: ${d.healthcare}%<br>In Poverty: ${d.poverty}%`);
       });
@@ -121,4 +121,6 @@ d3.csv("assets/data/data.csv").then(function (censusData) {
      .classed("active", true)
      .text("In Poverty (%)");
 
+}).catch(function(error) {
+  console.log(error);
 });
